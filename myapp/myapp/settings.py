@@ -119,3 +119,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
+
+MEDIA_URL = '/books/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'book_user/static/book_user/img/books')
