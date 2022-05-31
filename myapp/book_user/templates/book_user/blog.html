@@ -59,9 +59,9 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto" href="index.html#home">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'index' %}">Home</a></li>
           <li><a class="nav-link scrollto" href="index.html#about">About</a></li>
-          <li><a class="nav-link scrollto" href="index.html#pricing">Book</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'books' %}">Book</a></li>
           <li><a class="nav-link scrollto" href="index.html#services">Author</a></li>
           <li><a href="{% url 'blog' %}">Blog</a></li>
           <li><a class="nav-link scrollto" href="index.html#contact">Contact</a></li>
@@ -318,7 +318,8 @@
                   <input type="text">
                   <button type="submit"><i class="bi bi-search"></i></button>
                 </form>
-              </div><!-- End sidebar search formn-->
+              </div>
+              <!-- End sidebar search formn-->
 
               
               <div class="sidebar-item recent-posts">
