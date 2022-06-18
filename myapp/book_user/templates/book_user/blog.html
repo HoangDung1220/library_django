@@ -28,53 +28,38 @@
 
   <!-- Variables CSS Files. Uncomment your preferred color scheme -->
   <link href="{% static 'book_user/css/variables.css' %}" rel="stylesheet">
-  <!-- <link href="assets/css/variables-blue.css" rel="stylesheet"> -->
-  <!-- <link href="assets/css/variables-green.css" rel="stylesheet"> -->
-  <!-- <link href="assets/css/variables-orange.css" rel="stylesheet"> -->
-  <!-- <link href="assets/css/variables-purple.css" rel="stylesheet"> -->
-  <!-- <link href="assets/css/variables-red.css" rel="stylesheet"> -->
-  <!-- <link href="assets/css/variables-pink.css" rel="stylesheet"> -->
-
+  
   <!-- Template Main CSS File -->
   <link href="{% static 'book_user/css/main.css' %}" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: HeroBiz - v2.1.0
-  * Template URL: https://bootstrapmade.com/herobiz-bootstrap-business-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top" data-scrollto-offset="0">
-    <div class="container-fluid d-flex align-items-center justify-content-between">
-
-      <a href="index.html" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-      </a>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto" href="{% url 'index' %}">Home</a></li>
-          <li><a class="nav-link scrollto" href="index.html#about">About</a></li>
-          <li><a class="nav-link scrollto" href="{% url 'books' %}">Book</a></li>
-          <li><a class="nav-link scrollto" href="index.html#services">Author</a></li>
-          <li><a href="{% url 'blog' %}">Blog</a></li>
-          <li><a class="nav-link scrollto" href="index.html#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="index.html#services">Personal</a></li>
-
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle d-none"></i>
-      </nav><!-- .navbar -->
-      <a class="btn-getstarted scrollto" href="index.html#about">Get Started</a>
-
-    </div>
-  </header><!-- End Header -->
-
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top" data-scrollto-offset="0">
+      <div class="container-fluid d-flex align-items-center justify-content-between">
+  
+        <a href="index.html" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+          
+        </a>
+  
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><a class="{% url 'personal_home'%}" href="">Home</a></li>
+            <li><a class="nav-link scrollto" href="{% url 'book-borrow' %} ">My Borrow Book</a></li>
+            <li><a href="{% url 'blog-personal' %}">My Blog</a></li>
+            <li><a class="nav-link scrollto" href="index.html#contact">Information</a></li>
+  
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle d-none"></i>
+        </nav><!-- .navbar -->
+  
+        <a class="btn-getstarted scrollto" href="index.html#about">Logout</a>
+  
+      </div>
+    </header><!-- End Header -->
   <main id="main">
 
     <!-- ======= Breadcrumbs ======= -->
@@ -101,23 +86,21 @@
           <div class="col-lg-8">
 
             <div class="row gy-4 posts-list">
-
+              {% for item in list %}
               <div class="col-lg-6">
                 <article class="d-flex flex-column">
 
                   <div class="post-img">
-                    <img src="{% static 'book_user/img/book2.jpg' %}" alt="" class="img-fluid">
+                    <img src="/static/{{item.image}}' " alt="" class="img-fluid">
                   </div>
 
                   <h2 class="title">
-                    <a href="blog-details.html">Hoàng hôn phía chân trời</a>
+                    <a href="blog-details.html">{{item.title}}</a>
                   </h2>
 
                   <div class="meta-top">
                     <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">Anh Thu</a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">12 bình luận</a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">{{item.user.username}}</a></li>
                     </ul>
                   </div>
 
@@ -128,183 +111,16 @@
                   </div>
 
                   <div class="read-more mt-auto align-self-end">
-                    <a href="blog-details.html">Đọc thêm</a>
+                    <a href="{% url 'blog-detail' blogId=item.id %} ">Đọc thêm</a>
                   </div>
 
                 </article>
               </div><!-- End post list item -->
-
-              <div class="col-lg-6">
-                <article class="d-flex flex-column">
-
-                  <div class="post-img">
-                    <img src="{% static 'book_user/img/book1.jpg' %}" alt="" class="img-fluid">
-                  </div>
-
-                  <h2 class="title">
-                    <a href="blog-details.html">Nhà giả kim</a>
-                  </h2>
-
-                  <div class="meta-top">
-                    <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">Anh Thu</a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">12 bình luận</a></li>
-                    </ul>
-                  </div>
-
-                  <div class="content">
-                    <p>
-                      Tác phẩm cho mình cái nhìn tươi xanh về cuộc sống, về tương lai để chúng ta cùng phấn đấu.
-                    </p>
-                  </div>
-
-                  <div class="read-more mt-auto align-self-end">
-                    <a href="blog-details.html">Read More</a>
-                  </div>
-
-                </article>
-              </div><!-- End post list item -->
-
-              <div class="col-lg-6">
-                <article class="d-flex flex-column">
-
-                  <div class="post-img">
-                    <img src="{% static 'book_user/img/blog/blog-3.jpg' %}" alt="" class="img-fluid">
-                  </div>
-
-                  <h2 class="title">
-                    <a href="blog-details.html">Possimus soluta ut id suscipit ea ut. In quo quia et soluta libero sit sint.</a>
-                  </h2>
-
-                  <div class="meta-top">
-                    <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">Anh Thu</a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">12 bình luận</a></li>
-                    </ul>
-                  </div>
-
-                  <div class="content">
-                    <p>
-                      Tác phẩm cho mình cái nhìn tươi xanh về cuộc sống, về tương lai để chúng ta cùng phấn đấu.
-                    </p>
-                  </div>
-
-
-                  <div class="read-more mt-auto align-self-end">
-                    <a href="blog-details.html">Read More</a>
-                  </div>
-
-                </article>
-              </div><!-- End post list item -->
-
-              <div class="col-lg-6">
-                <article class="d-flex flex-column">
-
-                  <div class="post-img">
-                    <img src="{% static 'book_user/img/blog/blog-4.jpg' %}" alt="" class="img-fluid">
-                  </div>
-
-                  <h2 class="title">
-                    <a href="blog-details.html">Non rem rerum nam cum quo minus. Dolor distinctio deleniti explicabo eius exercitationem.</a>
-                  </h2>
-
-                  <div class="meta-top">
-                    <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">Anh Thu</a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">12 bình luận</a></li>
-                    </ul>
-                  </div>
-
-                  <div class="content">
-                    <p>
-                      Tác phẩm cho mình cái nhìn tươi xanh về cuộc sống, về tương lai để chúng ta cùng phấn đấu.
-                    </p>
-                  </div>
-
-                  <div class="read-more mt-auto align-self-end">
-                    <a href="blog-details.html">Read More</a>
-                  </div>
-
-                </article>
-              </div><!-- End post list item -->
-
-              <div class="col-lg-6">
-                <article class="d-flex flex-column">
-
-                  <div class="post-img">
-                    <img src="{% static 'book_user/img/blog/blog-5.jpg' %}" alt="" class="img-fluid">
-                  </div>
-
-                  <h2 class="title">
-                    <a href="blog-details.html">Accusamus quaerat aliquam qui debitis facilis consequatur</a>
-                  </h2>
-
-                  <div class="meta-top">
-                    <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">Anh Thu</a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">12 bình luận</a></li>
-                    </ul>
-                  </div>
-
-                  <div class="content">
-                    <p>
-                      Tác phẩm cho mình cái nhìn tươi xanh về cuộc sống, về tương lai để chúng ta cùng phấn đấu.
-                    </p>
-                  </div>
-
-
-                  <div class="read-more mt-auto align-self-end">
-                    <a href="blog-details.html">Read More</a>
-                  </div>
-
-                </article>
-              </div><!-- End post list item -->
-
-              <div class="col-lg-6">
-                <article class="d-flex flex-column">
-
-                  <div class="post-img">
-                    <img src="{% static 'book_user/img/blog/blog-6.jpg' %}" alt="" class="img-fluid">
-                  </div>
-
-                  <h2 class="title">
-                    <a href="blog-details.html">Distinctio provident quibusdam numquam aperiam aut</a>
-                  </h2>
-
-                  <div class="meta-top">
-                    <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">Anh Thu</a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">12 bình luận</a></li>
-                    </ul>
-                  </div>
-
-                  <div class="content">
-                    <p>
-                      Tác phẩm cho mình cái nhìn tươi xanh về cuộc sống, về tương lai để chúng ta cùng phấn đấu.
-                    </p>
-                  </div>
-
-                  <div class="read-more mt-auto align-self-end">
-                    <a href="blog-details.html">Read More</a>
-                  </div>
-
-                </article>
-              </div><!-- End post list item -->
+              {% endfor %}
 
             </div><!-- End blog posts list -->
 
-            <div class="blog-pagination">
-              <ul class="justify-content-center">
-                <li><a href="#">1</a></li>
-                <li class="active"><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-              </ul>
-            </div><!-- End blog pagination -->
+           
 
           </div>
 
@@ -387,57 +203,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
 
-    <div class="footer-content">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-info">
-              <h3>HeroBiz</h3>
-              <p>
-                A108 Adam Street <br>
-                NY 535022, USA<br><br>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
-                <strong>Email:</strong> info@example.com<br>
-              </p>
-            </div>
-          </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-
-          </div>
-
-        </div>
-      </div>
-    </div>
-
+  
     <div class="footer-legal text-center">
       <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
 
