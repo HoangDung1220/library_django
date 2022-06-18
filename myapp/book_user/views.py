@@ -47,4 +47,5 @@ class BooksViewSearch(View):
             book = paginator.page(paginator.num_pages)
         
         return render(req, 'book_user/books.html', {'books': book})
-        
+
+

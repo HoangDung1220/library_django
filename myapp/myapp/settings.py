@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'book_user.apps.BookUserConfig',
+    'blog'
 ]
 
 MIDDLEWARE = [
@@ -104,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -123,4 +125,5 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
 
 MEDIA_URL = '/books/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'book_user/static/book_user/img/books')
+MEDIA_ROOT = '%s/book_user/static/' %BASE_DIR
+AUTH_USER_MODEL = 'book_user.User'
