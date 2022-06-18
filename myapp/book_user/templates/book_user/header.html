@@ -1,0 +1,24 @@
+{% block header %}
+<header id="header" class="header fixed-top" data-scrollto-offset="0">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+        
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto" href="">Home</a></li>
+          <li><a class="nav-link scrollto" href="index.html#pricing">My Borrow Book</a></li>
+          <li><a href="{% url 'blog' %}">My Blog</a></li>
+          <li><a class="nav-link scrollto" href="index.html#contact">Information</a></li>
+
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle d-none"></i>
+      </nav><!-- .navbar -->
+
+      <a class="btn-getstarted scrollto" href="index.html#about">Logout</a>
+
+    </div>
+  </header><!-- End Header -->
+  {% end block %}
