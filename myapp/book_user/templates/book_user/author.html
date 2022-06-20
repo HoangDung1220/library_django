@@ -1,5 +1,6 @@
 {% include 'partial/header.html' %}
 {% load static %}
+
   <main id="main">
 
     <!-- ======= Breadcrumbs ======= -->
@@ -7,16 +8,16 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Books</h2>
+          <h2>Authors</h2>
           <!-- Search Header -->
-          <form action="/books/search" class="input-group" style="width: 30%;">
-            <input required name="s" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+          <form action="/authors/search" class="input-group" style="width: 30%;">
+            <input required name="a" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
             <button type="submit" class="btn btn-outline-primary">search</button>
           </form>
           <!-- End Search Header  -->
           <ol>
             <li><a href="/home">Home</a></li>
-            <li>Books</li>
+            <li>Authors</li>
           </ol>
         </div>
 
@@ -32,14 +33,14 @@
           <div class="col-lg-12">
 
             <div class="row gy-4 posts-list">
-              {% if books %}
-              {% for item in books %}
+              {% if authors %}
+              {% for item in authors %}
               <div class="col-lg-4">
                 <article class="d-flex flex-column">
 
                   <div class="post-img">
                     {% if item.image %}
-                    <img src="{% static item.image %}" alt="" class="img-fluid">
+                    <img src="{%static item.image %}" alt="" class="img-fluid">
                     {% endif %}
                   </div>
 
@@ -49,8 +50,7 @@
 
                   <div class="meta-top">
                     <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">{{ item.author.name }}</a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">{{item.year_pub}}</time></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <time datetime="2022-01-01">Năm sinh: {{item.year_born}}</time></li>
                     </ul>
                   </div>
 
@@ -59,26 +59,22 @@
                       {{item.description}}
                     </p>
                   </div>
-
-                  <div class="read-more mt-auto text-center">
-                    <a href="/blog-book/{{item.id}}">Xem chi tiết</a>
-                  </div>
-
                 </article>
               </div><!-- End post list item -->
               {% endfor %}
+             
             </div><!-- End blog posts list -->
 
             <div class="blog-pagination">
               <ul class="justify-content-center">
-                {% if books.number > 5 %}
+                {% if authors.number > 5 %}
                 <li><a href="?page=1"><i>1</i></a></li>
                 {% endif %}
 
-                {% for i in books.paginator.page_range %}
-                {% if i > books.number|add:"-5" %}
-                    {% if i < books.number|add:"5" %}
-                        {% if books.number == i %}
+                {% for i in authors.paginator.page_range %}
+                {% if i > authors.number|add:"-5" %}
+                    {% if i < authors.number|add:"5" %}
+                        {% if authors.number == i %}
                         <li class="active" ><a href="?page={{ i }}">{{ i }}</a></li>
                         {% else %}
                         <li><a href="?page={{ i }}">{{ i }}</a></li>
@@ -87,22 +83,21 @@
                 {% endif %}
                 {% endfor %}
 
-                {% if books.number < books.paginator.num_pages|add:"-5" %}
-                <li><a href="?page={{ books.paginator.num_pages }}"><i>{{ books.paginator.num_pages }}</i></a></li>
+                {% if authors.number < authors.paginator.num_pages|add:"-5" %}
+                <li><a href="?page={{ authors.paginator.num_pages }}"><i>{{ authors.paginator.num_pages }}</i></a></li>
                 {% endif %}
                
               </ul>
             </div><!-- End blog pagination -->
+            {% else %}
+            <p>No books are available.</p> 
+            {% endif %}
 
           </div>
 
           
 
           </div>
-          
-          {% else %}
-          <p>No books are available.</p> 
-          {% endif %}
 
         </div>
 
@@ -111,4 +106,4 @@
 
   </main><!-- End #main -->
 
-{% include 'partial/footer.html' %}
+  {% include 'partial/footer.html' %}
