@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User,AbstractUser
 
@@ -8,6 +9,7 @@ class Author(models.Model):
     name = models.CharField(max_length=255, default='')
     description = models.TextField(default='')
     year_born = models.IntegerField()
+    image = models.ImageField(upload_to = 'book_user/img/authors', default='')
     def __str__(self):
         return self.name
 
