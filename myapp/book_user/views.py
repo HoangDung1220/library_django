@@ -84,4 +84,4 @@ class AuthorViewSearch(View):
         
         return render(req, 'book_user/author.html', {'authors': author})
 
-
+    
