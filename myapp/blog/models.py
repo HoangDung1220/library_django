@@ -15,12 +15,9 @@ class Blog(models.Model):
     book = models.ForeignKey(Book,on_delete=models.CASCADE)
     image = models.ImageField(upload_to='blog/img')
 
-<<<<<<< HEAD
     def __str__(self) :
         return self.title
 
-=======
->>>>>>> ddddba61ff043d981211675a4a7c8299d4509b2d
 class Comment(models.Model):
     
     create_date = models.DateTimeField(auto_now_add=True)
