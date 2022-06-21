@@ -119,13 +119,13 @@
                   </div>
 
                   <h2 class="title">
-                    <a href="blog-details.html">{{ item.name }}</a>
+                    <a href="/blog-book/{{item.id}}">{{ item.name }}</a>
                   </h2>
 
                   <div class="meta-top">
                     <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">{{ item.author.name }}</a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">{{item.year_pub}}</time></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> {{ item.author.name }}</li>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <time datetime="2022-01-01">{{item.year_pub}}</time></li>
                     </ul>
                   </div>
 
