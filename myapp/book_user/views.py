@@ -87,7 +87,6 @@ class AuthorViewSearch(View):
         
         return render(req, 'book_user/author.html', {'authors': author})
 
-    
 def getBookBlogDetail(request,BookId):
         b = Book.objects.filter(id=BookId)
         blogs = Blog.objects.filter(book_id=BookId)
