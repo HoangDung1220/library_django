@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+<<<<<<< HEAD
 from matplotlib import image
+=======
+>>>>>>> ddddba61ff043d981211675a4a7c8299d4509b2d
 from matplotlib.pyplot import title
 from matplotlib.style import use
 from .forms import BlogForm
@@ -8,6 +11,7 @@ from django.views import View
 from book_user.models import Book,BorrowBook
 from blog.models import Blog,Comment
 from book_user.models import User
+<<<<<<< HEAD
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -16,6 +20,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 class BookBorrowView(LoginRequiredMixin,View):
     login_url ='/login'
+=======
+from django.contrib.auth import authenticate,login
+from django.contrib.auth.mixins import LoginRequiredMixin
+# Create your views here.
+
+class BookBorrowView(View):
+>>>>>>> ddddba61ff043d981211675a4a7c8299d4509b2d
     def get(self,request):
         id = request.user.id
         list = BorrowBook.objects.filter(user_id=id)
@@ -48,6 +59,7 @@ def getBlogDetail(request,blogId):
    
     return render(request,'book_user/blog-details.html',data)
 
+<<<<<<< HEAD
 def getBlogPersonal(request):
     id = request.user.id
     blogs = Blog.objects.filter(user_id = id)[:3]
@@ -65,6 +77,8 @@ def getBlogPersonal(request):
 
 
 
+=======
+>>>>>>> ddddba61ff043d981211675a4a7c8299d4509b2d
 class CommentView(View):
     def post(self,request):
         content = request.POST['content']
@@ -84,9 +98,13 @@ class CommentView(View):
         print(content)
         return redirect('blog-detail',blogId = blog_id)
 
+<<<<<<< HEAD
 
 class BlogView(LoginRequiredMixin,View):
     login_url = '/login'
+=======
+class BlogView(View):
+>>>>>>> ddddba61ff043d981211675a4a7c8299d4509b2d
     def post(self,request):
         f = BlogForm(request.POST, request.FILES)
         BookId = request.POST['id_book']
@@ -102,6 +120,7 @@ class BlogView(LoginRequiredMixin,View):
 
     def get(self,request):
         id = request.user.id
+<<<<<<< HEAD
         blogs = Blog.objects.filter(user_id=id)
         paginator = Paginator(blogs, 6)
         pageNumber = request.GET.get('page')
@@ -116,10 +135,18 @@ class BlogView(LoginRequiredMixin,View):
             'blogs':blogs
         }
         return render(request,'book_user/blog_personal.html',data)
+=======
+        list = Blog.objects.filter(user_id=id)
+        data = {
+            'list':list
+        }
+        return render(request,'book_user/blog.html',data)
+>>>>>>> ddddba61ff043d981211675a4a7c8299d4509b2d
     
 class Personal(LoginRequiredMixin,View):    
     login_url = '/login'
     def get(self,request):
+<<<<<<< HEAD
         id = request.user.id
         borrow_books = BorrowBook.objects.filter(user_id = id)[:3]
         books = []
@@ -127,6 +154,10 @@ class Personal(LoginRequiredMixin,View):
         for item in borrow_books:
             books.append(item.book)
         return render(request,'book_user/personal_home.html',{'list':books,'blogs':blogs})
+=======
+        booklist = Book.objects.all()
+        return render(request,'book_user/personal_home.html',{'list':booklist})
+>>>>>>> ddddba61ff043d981211675a4a7c8299d4509b2d
 
 class LoginView(View):
     def get(self,request):
@@ -143,6 +174,7 @@ class LoginView(View):
             return render(request,'book_user/personal_home.html',{'list':booklist})
         else:
             return render(request,'book_user/login.html')
+<<<<<<< HEAD
 
 class BookView(LoginRequiredMixin,View):
     login_url = '/login'
@@ -203,6 +235,10 @@ def getBlogHome(self,request):
             'blogs':blogs
         }
         return render(request,'book_user/blog_home.html',data)
+=======
+    
+
+>>>>>>> ddddba61ff043d981211675a4a7c8299d4509b2d
 
 
             

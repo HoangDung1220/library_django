@@ -1,3 +1,4 @@
+{% include 'partial/header.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -89,7 +90,7 @@
           </form>
           <!-- End Search Header  -->
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="/home">Home</a></li>
             <li>Books</li>
           </ol>
         </div>
@@ -98,7 +99,7 @@
     </div><!-- End Breadcrumbs -->
 
     <!-- ======= Blog Section ======= -->
-    <section id="blog" class="blog">
+    <section id="blog" class="blog" style="min-height: 483px;">
       <div class="container" data-aos="fade-up">
 
         <div class="row g-5">
@@ -113,7 +114,7 @@
 
                   <div class="post-img">
                     {% if item.image %}
-                    <img src="{{item.image}}" alt="" class="img-fluid">
+                    <img src="{% static item.image %}" alt="" class="img-fluid">
                     {% endif %}
                   </div>
 
@@ -141,9 +142,6 @@
                 </article>
               </div><!-- End post list item -->
               {% endfor %}
-              {% else %}
-              <p>No books are available.</p> 
-              {% endif %}
             </div><!-- End blog posts list -->
 
             <div class="blog-pagination">
@@ -176,6 +174,10 @@
           
 
           </div>
+          
+          {% else %}
+          <p>No books are available.</p> 
+          {% endif %}
 
         </div>
 

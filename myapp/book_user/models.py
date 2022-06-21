@@ -9,7 +9,6 @@ class Author(models.Model):
     description = models.TextField(default='')
     year_born = models.IntegerField()
     image = models.ImageField(upload_to = 'book_user/img/authors', default='')
-
     def __str__(self):
         return self.name
 
