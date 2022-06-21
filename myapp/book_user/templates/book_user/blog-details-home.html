@@ -51,6 +51,7 @@
 
   <!-- ======= Header ======= -->
     <!-- ======= Header ======= -->
+    <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top" data-scrollto-offset="0">
       <div class="container-fluid d-flex align-items-center justify-content-between">
   
@@ -60,16 +61,17 @@
   
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a href="{% url 'personal_home' %}">Home</a></li>
-            <li><a class="nav-link scrollto" href="{% url 'book-borrow' %} ">My Borrow Book</a></li>
-            <li><a href="{% url 'blog-personal' %}">My Blog</a></li>
-            <li><a class="nav-link scrollto" href="{% url 'information' %}">Information</a></li>
+            <li><a class="nav-link scrollto" href="">Home</a></li>
+            <li><a class="nav-link scrollto" href="/books/">Book</a></li>
+            <li><a class="nav-link scrollto" href="/author/">Author</a></li>
+            <li><a href="{% url 'blog' %}">Blog</a></li>
+            <li><a class="nav-link scrollto" href="{% url 'personal_home' %}">Personal</a></li>
   
           </ul>
           <i class="bi bi-list mobile-nav-toggle d-none"></i>
         </nav><!-- .navbar -->
   
-        <a class="btn-getstarted scrollto" href="{% url 'log-out' %}">Logout</a>
+        <a class="btn-getstarted scrollto" href="index.html#about">Register</a>
   
       </div>
     </header><!-- End Header -->
@@ -136,7 +138,7 @@
 
 
               <div class="comment">
-                <form action="{% url 'comment' %}" method="post">
+                <form action="{% url 'comment-home' %}" method="post">
                   {% csrf_token %}
                 <input type="text" 
                  style="width: 850px;height: 30px; border-radius: 0.2;"
@@ -195,7 +197,7 @@
                 {% endfor %}
 
                 <div id = "comment-context-{{comment.id}}" style="display: none;">
-                  <form action="{% url 'comment' %}" method="post">
+                  <form action="{% url 'comment-home' %}" method="post">
                     {% csrf_token %}
                   <input type="text" 
                   style="width: 850px;height: 30px; border-radius: 0.2"
@@ -240,7 +242,7 @@
                 <img src="/static/{{blog.image}}" alt="" class="flex-shrink-0"
                 style="width: 100px;height: 100px;">
                 <div>
-                  <h4><a href=" {% url 'blog-detail' blogId=blog.id %}">{{blog.title}}</a></h4>
+                  <h4><a href=" {% url 'blog-detail-home' blogId=blog.id %}">{{blog.title}}</a></h4>
                 </div>
               </div><!-- End recent post item-->
               {% endfor %}
