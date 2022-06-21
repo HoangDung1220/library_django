@@ -1,0 +1,219 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Books</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'book_user/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'book_user/img/apple-touch-icon.png' %} " rel="apple-touch-icon">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'book_user/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'book_user/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'book_user/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'book_user/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'book_user/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="{% static 'book_user/css/variables.css' %}" rel="stylesheet">
+  <link href="{% static 'book_user/css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'book_user/css/customer.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top" data-scrollto-offset="0">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+        
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="{% url 'personal_home' %}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'book-borrow' %} ">My Borrow Book</a></li>
+          <li><a href="{% url 'blog-personal' %}">My Blog</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'information' %}">Information</a></li>
+
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle d-none"></i>
+      </nav><!-- .navbar -->
+
+      <a class="btn-getstarted scrollto" href="{% url 'log-out' %}">Logout</a>
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Books</h2>
+          <!-- Search Header -->
+          <form action="/books/search" class="input-group" style="width: 30%;">
+            <input required name="s" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <button type="submit" class="btn btn-outline-primary">search</button>
+          </form>
+          <!-- End Search Header  -->
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Books</li>
+          </ol>
+        </div>
+
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row g-5">
+
+          <div class="col-lg-12">
+
+            <div class="row gy-4 posts-list">
+              {% if books %}
+              {% for item in books %}
+              <div class="col-lg-4">
+                <article class="d-flex flex-column">
+
+                  <div class="post-img">
+                    {% if item.image %}
+                    <img src="{% static item.image %}" alt="" class="img-fluid">
+                    {% endif %}
+                  </div>
+
+                  <h2 class="title">
+                    <a href="blog-details.html">{{ item.name }}</a>
+                  </h2>
+
+                  <div class="meta-top">
+                    <ul>
+                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#">{{ item.author.name }}</a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="2022-01-01">{{item.year_pub}}</time></a></li>
+                    </ul>
+                  </div>
+
+                  <div class="content">
+                    <p>
+                      {{item.description}}
+                    </p>
+                  </div>
+
+                  <div class="read-more mt-auto text-center">
+                    <a href="{% url 'blog-book' BookId=item.id %}">Xem chi tiết</a>
+                  </div>
+
+                </article>
+              </div><!-- End post list item -->
+              {% endfor %}
+              {% else %}
+              <p>No books are available.</p> 
+              {% endif %}
+            </div><!-- End blog posts list -->
+
+            <div class="blog-pagination">
+              <ul class="justify-content-center">
+                {% if books.number > 5 %}
+                <li><a href="?page=1"><i>1</i></a></li>
+                {% endif %}
+
+                {% for i in books.paginator.page_range %}
+                {% if i > books.number|add:"-5" %}
+                    {% if i < books.number|add:"5" %}
+                        {% if books.number == i %}
+                        <li class="active" ><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% endfor %}
+
+                {% if books.number < books.paginator.num_pages|add:"-5" %}
+                <li><a href="?page={{ books.paginator.num_pages }}"><i>{{ books.paginator.num_pages }}</i></a></li>
+                {% endif %}
+               
+              </ul>
+            </div><!-- End blog pagination -->
+
+          </div>
+
+          
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Blog Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+
+   
+
+    <div class="footer-legal text-center">
+      <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
+
+        <div class="d-flex flex-column align-items-center align-items-lg-start">
+          <div class="copyright">
+            &copy; Copyright <strong><span>HeroBiz</span></strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+
+        <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
+          <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        </div>
+
+      </div>
+    </div>
+
+  </footer><!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'book_user/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'book_user/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'book_user/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'book_user/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'book_user/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'book_user/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'book_user/js/main.js' %}"></script>
+
+</body>
+
+</html>

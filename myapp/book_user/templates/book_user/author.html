@@ -1,0 +1,109 @@
+{% include 'partial/header.html' %}
+{% load static %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Authors</h2>
+          <!-- Search Header -->
+          <form action="/authors/search" class="input-group" style="width: 30%;">
+            <input required name="a" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <button type="submit" class="btn btn-outline-primary">search</button>
+          </form>
+          <!-- End Search Header  -->
+          <ol>
+            <li><a href="/home">Home</a></li>
+            <li>Authors</li>
+          </ol>
+        </div>
+
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog" style="min-height: 483px;">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row g-5">
+
+          <div class="col-lg-12">
+
+            <div class="row gy-4 posts-list">
+              {% if authors %}
+              {% for item in authors %}
+              <div class="col-lg-4">
+                <article class="d-flex flex-column">
+
+                  <div class="post-img">
+                    {% if item.image %}
+                    <img src="{%static item.image %}" alt="" class="img-fluid">
+                    {% endif %}
+                  </div>
+
+                  <h2 class="title">
+                    <a href="blog-details.html">{{ item.name }}</a>
+                  </h2>
+
+                  <div class="meta-top">
+                    <ul>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <time datetime="2022-01-01">Năm sinh: {{item.year_born}}</time></li>
+                    </ul>
+                  </div>
+
+                  <div class="content">
+                    <p>
+                      {{item.description}}
+                    </p>
+                  </div>
+                </article>
+              </div><!-- End post list item -->
+              {% endfor %}
+             
+            </div><!-- End blog posts list -->
+
+            <div class="blog-pagination">
+              <ul class="justify-content-center">
+                {% if authors.number > 5 %}
+                <li><a href="?page=1"><i>1</i></a></li>
+                {% endif %}
+
+                {% for i in authors.paginator.page_range %}
+                {% if i > authors.number|add:"-5" %}
+                    {% if i < authors.number|add:"5" %}
+                        {% if authors.number == i %}
+                        <li class="active" ><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% endfor %}
+
+                {% if authors.number < authors.paginator.num_pages|add:"-5" %}
+                <li><a href="?page={{ authors.paginator.num_pages }}"><i>{{ authors.paginator.num_pages }}</i></a></li>
+                {% endif %}
+               
+              </ul>
+            </div><!-- End blog pagination -->
+            {% else %}
+            <p>No books are available.</p> 
+            {% endif %}
+
+          </div>
+
+          
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Blog Section -->
+
+  </main><!-- End #main -->
+
+  {% include 'partial/footer.html' %}
