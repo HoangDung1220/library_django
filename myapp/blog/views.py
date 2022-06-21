@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from matplotlib import image
 from matplotlib.pyplot import title
 from matplotlib.style import use
 from .forms import BlogForm
@@ -7,11 +8,14 @@ from django.views import View
 from book_user.models import Book,BorrowBook
 from blog.models import Blog,Comment
 from book_user.models import User
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # Create your views here.
 
-class BookBorrowView(View):
+class BookBorrowView(LoginRequiredMixin,View):
+    login_url ='/login'
     def get(self,request):
         id = request.user.id
         list = BorrowBook.objects.filter(user_id=id)
@@ -44,6 +48,23 @@ def getBlogDetail(request,blogId):
    
     return render(request,'book_user/blog-details.html',data)
 
+def getBlogPersonal(request):
+    id = request.user.id
+    blogs = Blog.objects.filter(user_id = id)[:3]
+    paginator = Paginator(blogs, 6)
+    pageNumber = request.GET.get('page')
+    try:
+        blogs = paginator.page(pageNumber)
+    except PageNotAnInteger:
+        blogs = paginator.page(1)
+    except EmptyPage:
+        blogs = paginator.page(paginator.num_pages)
+    
+    data = {'blogs':blogs}
+    return render(request,'book_user/blog_personal.html',data)
+
+
+
 class CommentView(View):
     def post(self,request):
         content = request.POST['content']
@@ -63,7 +84,9 @@ class CommentView(View):
         print(content)
         return redirect('blog-detail',blogId = blog_id)
 
-class BlogView(View):
+
+class BlogView(LoginRequiredMixin,View):
+    login_url = '/login'
     def post(self,request):
         f = BlogForm(request.POST, request.FILES)
         BookId = request.POST['id_book']
@@ -79,17 +102,31 @@ class BlogView(View):
 
     def get(self,request):
         id = request.user.id
-        list = Blog.objects.filter(user_id=id)
+        blogs = Blog.objects.filter(user_id=id)
+        paginator = Paginator(blogs, 6)
+        pageNumber = request.GET.get('page')
+        try:
+            blogs = paginator.page(pageNumber)
+        except PageNotAnInteger:
+            blogs = paginator.page(1)
+        except EmptyPage:
+            blogs = paginator.page(paginator.num_pages)
+
         data = {
-            'list':list
+            'blogs':blogs
         }
-        return render(request,'book_user/blog.html',data)
+        return render(request,'book_user/blog_personal.html',data)
     
 class Personal(LoginRequiredMixin,View):    
     login_url = '/login'
     def get(self,request):
-        booklist = Book.objects.all()
-        return render(request,'book_user/personal_home.html',{'list':booklist})
+        id = request.user.id
+        borrow_books = BorrowBook.objects.filter(user_id = id)[:3]
+        books = []
+        blogs = Blog.objects.filter(user_id = id)[:3]
+        for item in borrow_books:
+            books.append(item.book)
+        return render(request,'book_user/personal_home.html',{'list':books,'blogs':blogs})
 
 class LoginView(View):
     def get(self,request):
@@ -106,8 +143,66 @@ class LoginView(View):
             return render(request,'book_user/personal_home.html',{'list':booklist})
         else:
             return render(request,'book_user/login.html')
-    
 
+class BookView(LoginRequiredMixin,View):
+    login_url = '/login'
+    def get(self,request):
+        id = request.user.id
+        borrow_books = BorrowBook.objects.filter(user_id = id)
+        books = []
+        for item in borrow_books:
+            books.append(item.book)
+        paginator = Paginator(books, 6)
+        pageNumber = request.GET.get('page')
+        try:
+            book = paginator.page(pageNumber)
+        except PageNotAnInteger:
+            book = paginator.page(1)
+        except EmptyPage:
+            book = paginator.page(paginator.num_pages)
+        
+        return render(request, 'book_user/books_personal.html', {'books': book})
+    
+class LogoutView(View):
+    def get(self,request):
+        logout(request)
+        return render(request,'book_user/index.html')
+
+def getUpdateBlog(request,id_blog):
+        blog = Blog.objects.get(pk=id_blog)
+        data = {
+            "blog":blog
+        }
+        return render(request, 'book_user/update_blog.html',data)
+
+class UpdateBlog(View):
+    
+    def post(self, request):
+        id = request.POST.get('id_blog')
+        blog = Blog.objects.get(pk=id)
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        blog.title = title
+        blog.content = content
+        blog.save()
+        return render(request, 'book_user/index.html')
+
+def getBlogHome(self,request):
+       
+        blogs = Blog.objects.all()
+        paginator = Paginator(blogs, 6)
+        pageNumber = request.GET.get('page')
+        try:
+            blogs = paginator.page(pageNumber)
+        except PageNotAnInteger:
+            blogs = paginator.page(1)
+        except EmptyPage:
+            blogs = paginator.page(paginator.num_pages)
+
+        data = {
+            'blogs':blogs
+        }
+        return render(request,'book_user/blog_home.html',data)
 
 
             
