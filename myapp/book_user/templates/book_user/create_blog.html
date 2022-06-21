@@ -1,0 +1,270 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Blog Details - HeroBiz Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'book_user/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'book_user/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'book_user/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'book_user/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'book_user/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'book_user/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'book_user/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Variables CSS Files. Uncomment your preferred color scheme -->
+  <link href="{% static 'book_user/css/variables.css' %}" rel="stylesheet">
+  <!-- <link href="assets/css/variables-blue.css" rel="stylesheet"> -->
+  <!-- <link href="assets/css/variables-green.css" rel="stylesheet"> -->
+  <!-- <link href="assets/css/variables-orange.css" rel="stylesheet"> -->
+  <!-- <link href="assets/css/variables-purple.css" rel="stylesheet"> -->
+  <!-- <link href="assets/css/variables-red.css" rel="stylesheet"> -->
+  <!-- <link href="assets/css/variables-pink.css" rel="stylesheet"> -->
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'book_user/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: HeroBiz - v2.1.0
+  * Template URL: https://bootstrapmade.com/herobiz-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top" data-scrollto-offset="0">
+      <div class="container-fluid d-flex align-items-center justify-content-between">
+  
+        <a href="index.html" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+          
+        </a>
+  
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><a href="{% url 'personal_home' %}">Home</a></li>
+            <li><a class="nav-link scrollto" href="{% url 'book-borrow' %} ">My Borrow Book</a></li>
+            <li><a href="{% url 'blog-personal' %}">My Blog</a></li>
+            <li><a class="nav-link scrollto" href="{% url 'information' %}">Information</a></li>
+  
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle d-none"></i>
+        </nav><!-- .navbar -->
+  
+        <a class="btn-getstarted scrollto" href="{% url 'log-out' %}">Logout</a>
+  
+      </div>
+    </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Blog Details</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li>Blog Details</li>
+          </ol>
+        </div>
+
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Details Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row g-5">
+
+          <div class="col-lg-8">
+
+            <article class="blog-details">
+
+              <div class="post-img">
+              <!--
+                <img src="{% static 'book_user/img/blog/blog-1.jpg' %}" alt="" class="img-fluid">
+
+              -->
+                <img src="/static/{{book.image}}"  alt="" class="img-fluid" style="width: 800px; height: 500px;">
+
+              </div>
+
+              <h2 class="title">{{book.name}}</h2>
+
+              <div class="meta-top">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">{{book.author.name}}</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2020-01-01">{{book.year_pub}}</time></a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">{{book.category.name}}</a></li>
+                </ul>
+              </div><!-- End meta top -->
+
+              <div class="content">
+                <p>
+                  {{book.description}}
+                 </p>
+
+              
+              </div><!-- End post content -->
+
+            </article><!-- End blog post -->
+
+            </article><!-- End blog post -->
+
+       
+            <div class="comments">
+              <div class="reply-form">
+
+                <h4>Create Blog</h4>
+                <form action="{% url 'blog-personal' %}" method = 'post' enctype="multipart/form-data">
+                  
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Title</label>
+                    <div class="col-md-6 form-group form-control">
+                      {{f.title}}
+                    </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Content</label>
+                    <div class="col-md-6 form-group form-control">
+                     {{f.content}}
+                    </div>
+                    </div>
+
+                    <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Image</label>
+                    <div class="col-md-6 form-group form-control">
+                      {{f.image}}
+                     </div>
+
+                     <input type="text" id="id_book"
+                         style="display: none;" name = "id_book" value="{{book.id}}"
+                          />
+                  </div>
+                  </div>
+                
+                
+
+                  <button type="submit" class="btn btn-primary">Save</button>
+
+                </form>
+
+              </div>
+
+            </div><!-- End blog comments -->
+
+          </div>
+   
+           <div class="col-lg-4">
+
+        <div class="sidebar">
+          <div class="sidebar-item recent-posts">
+            <h3 class="sidebar-title">Recent Posts</h3>
+
+            <div class="mt-3">
+              {% for blog in blogs %}
+              <div class="post-item mt-3">
+                <img src="/static/{{blog.image}}" alt="" class="flex-shrink-0">
+                <div>
+                  <h4><a href="{% url 'blog-detail' blogId=blog.id %}">{{blog.title}}</a></h4>
+                </div>
+              </div><!-- End recent post item-->
+              {% endfor %}
+            
+              
+
+
+
+            </div>
+
+          </div><!-- End sidebar recent posts-->
+
+         
+        </div><!-- End Blog Sidebar -->
+
+          </div>
+      </div>
+
+    </div>
+    
+    </div>
+    </section><!-- End Blog Details Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+
+  
+
+    <div class="footer-legal text-center">
+      <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
+
+        <div class="d-flex flex-column align-items-center align-items-lg-start">
+          <div class="copyright">
+            &copy; Copyright <strong><span>HeroBiz</span></strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+
+        <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
+          <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        </div>
+
+      </div>
+    </div>
+
+  </footer><!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'book_user/vendor/bootstrap/js/bootstrap.bundle.min.js ' %}"></script>
+  <script src="{% static 'book_user/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'book_user/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'book_user/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'book_user/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'book_user/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'book_user/js/main.js' %}"></script>
+
+</body>
+
+</html>
